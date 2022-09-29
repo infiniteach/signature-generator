@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Infiniteach Signature Generator</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="//unpkg.com/alpinejs" defer></script>
+  <link rel="prefetch" href="https://assets.infiniteach.com/images/branding/infiniteach-logo-blue-384x192.png" />
+</head>
+<body class="bg-gray-100">
+  <div class="mx-auto max-w-xl" x-data="{
+    name: 'Marty Trzpit',
+    title: 'Llama Farmer',
+    pronouns: 'he, him',
+    email: 'cfullrider@infiniteach.com',
+    tel: '+1 (773) 202-5862',
+    color: '#e31c58',
+    cofounder: false,
+    copy () {
+      const content = $refs.preview.innerHTML;
+      const blobInput = new Blob([content], {type: 'text/html'});
+      const clipboardItemInput = new ClipboardItem({
+        'text/html' : blobInput
+      });
+      navigator.clipboard.write([clipboardItemInput]).then(
+        function() {
+          alert('Great! Now paste this in the Gmail signature settings.')
+        },
+        function(err) {
+            console.log('failure', err);
+      });
+
+    },
+    appendCofounderText () {
+      if ($data.cofounder) {
+        return ' • Co-founder'
+      } else {
+        return ''
+      }
+    },
+    appendTelEl () {
+      if ($data.tel) {
+        return `<p style='margin-top:0pt;margin-bottom:0pt'>
+          <span style='font-family:Open Sans, sans-serif;opacity:0.8;vertical-align:baseline;white-space:pre-wrap'>${$data.tel}</span>
+        </p>`
+      } else {
+        return ''
+      }
+    },
+    preview () {
+      return `<table style='border:none;border-collapse:collapse;line-height:1.25'>
+        <colgroup><col width='160'><col width='440'></colgroup>
+        <tbody>
+          <tr>
+            <td style='border-right:4pt solid ${$data.color};vertical-align:top;padding:5pt;padding-right:10pt;overflow:hidden'>
+              <p style='margin-top:0pt;margin-bottom:0pt'>
+                <a href='https://www.infiniteach.com' target='_blank'>
+                  <span style='border:none;display:inline-block;overflow:hidden;width:140px;height:70px'>
+                    <img title='InfiniTeach logo' src='https://assets.infiniteach.com/images/branding/infiniteach-logo-blue-384x192.png' width='140' height='70' style='margin-left: 0px; margin-top: 0px;'>
+                  </span>
+                </a>
+              </p>
+            </td>
+            <td style='font-size:11pt;font-weight:500;vertical-align:top;padding:5pt;padding-left:10pt;overflow:hidden'>
+              <p style='margin-top:0pt;margin-bottom:0pt'>
+                <span style='font-family:Open Sans, sans-serif;font-size:17pt;font-weight:700;vertical-align:baseline;white-space:pre-wrap'>${$data.name || '{ Name }'}</span>
+              </p>
+              <p style='margin-top:0pt;margin-bottom:0pt'>
+                <span style='font-family:Open Sans, sans-serif;opacity:0.8;vertical-align:baseline;white-space:pre-wrap'>${$data.pronouns || '{ Pronouns }'}${this.appendCofounderText()}</span>
+              </p>
+              <p style='margin-top:0pt;margin-bottom:0pt'>
+                <span style='font-family:Open Sans, sans-serif;opacity:0.8;vertical-align:baseline;white-space:pre-wrap'>${$data.title || '{ Title }'}, </span>
+                <a href='https://www.infiniteach.com' target='_blank' style='text-decoration:none'>
+                  <span style='font-family:Open Sans, sans-serif;opacity:0.8;vertical-align:baseline;white-space:pre-wrap'>InfiniTeach</span>
+                </a>
+              </p>
+              ${this.appendTelEl()}
+            </td>
+          </tr>
+        </tbody>
+      </table>`
+    }
+  }">
+    <img src="https://assets.infiniteach.com/images/branding/infiniteach-logo-blue.svg">
+    <h1 class="my-8 text-4xl font-bold">Signature Generator</h1>
+
+    <div class="space-y-8 divide-y divide-gray-200">
+      <div class="pt-8">
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">1. Fill in your details</h3>
+          <p class="mt-1 text-sm text-gray-500">Add any information you want in your signature below.</p>
+        </div>
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4">
+          <div>
+            <label for="full-name" class="block text-sm font-medium opacity-75">Name*</label>
+            <div class="mt-1">
+              <input type="text" name="full-name" id="full-name" autocomplete="full-name" required x-model="name" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2">
+            </div>
+          </div>
+
+          <div>
+            <label for="organization-title" class="block text-sm font-medium opacity-75">Job Title*</label>
+            <div class="mt-1">
+              <input type="text" name="organization-title" id="organization-title" autocomplete="organization-title" required x-model="title" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2">
+            </div>
+          </div>
+
+          <div>
+            <label for="pronouns" class="block text-sm font-medium opacity-75">Pronouns* (e.g. he, him / she, her / other)</label>
+            <div class="mt-1">
+              <input type="text" name="pronouns" id="pronouns" autocomplete="pronouns" x-model="pronouns" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2">
+            </div>
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm font-medium opacity-75">Email address*</label>
+            <div class="mt-1">
+              <input id="email" name="email" type="email" autocomplete="email" x-model="email" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2">
+            </div>
+          </div>
+
+          <div>
+            <label for="tel" class="block text-sm font-medium opacity-75">Phone (optional, we're international so be sure to add country code!)</label>
+            <div class="mt-1">
+              <input id="tel" name="tel" type="tel" autocomplete="tel" placeholder="+1 (773) 202-5862" x-model="tel" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2">
+            </div>
+          </div>
+
+          <div>
+            <label for="color" class="block text-sm font-medium opacity-75">Divider Color</label>
+            <div class="mt-1 flex">
+              <div class="w-full"><input type="radio" id="blue" value="rgb(11,112,184,0.2)" x-model="color"><label for="blue"> Light Blue</label></div>
+              <div class="w-full"><input type="radio" id="pink" value="#e31c58" x-model="color"><label for="pink"> Pink</label></div>
+              <div class="w-full"><input type="radio" id="green" value="#0bb8aa" x-model="color"><label for="green"> Green</label></div>
+            </div>
+          </div>
+
+          <div class="flex flex-row items-center space-x-1 my-2">
+            <input id="cofounder" type="checkbox" x-model="cofounder">
+            <label for="cofounder" class="block font-medium opacity-75">Check here if you're a co-founder</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-8">
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">2. Preview</h3>
+          <p class="mt-1 text-sm text-gray-500">Double check everything looks correct!</p>
+        </div>
+
+        <div x-html="preview" x-ref="preview" class="bg-white p-8 mt-4 shadow-inner rounded-md">
+          Loading...
+        </div>
+      </div>
+
+      <div class="py-16">
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">3. Add to Gmail</h3>
+          <p class="mt-1 text-sm text-gray-500">Use the button below to copy your signature. Paste it in Signature section in <a href="https://mail.google.com/mail/u/0/#settings/general" target="_blank" class="underline font-semibold">Gmail Settings</a>.</p>
+        </div>
+
+        <button @click="copy()" class="mt-6 bg-black text-white font-semibold p-8 text-xl rounded-xl w-full" id='markup-copy'>Copy to the clipboard</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
