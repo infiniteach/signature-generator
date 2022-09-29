@@ -42,7 +42,7 @@
     appendTelEl () {
       if ($data.tel) {
         return `<p style='margin-top:0pt;margin-bottom:0pt'>
-          <span style='font-family:Open Sans, sans-serif;opacity:0.8;vertical-align:baseline;white-space:pre-wrap'>${$data.tel}</span>
+          <span style='font-family:Open Sans, sans-serif;color:#333;vertical-align:baseline;white-space:pre-wrap'>${$data.tel}</span>
         </p>`
       } else {
         return ''
@@ -64,15 +64,15 @@
             </td>
             <td style='font-size:11pt;font-weight:500;vertical-align:top;padding:5pt;padding-left:10pt;overflow:hidden'>
               <p style='margin-top:0pt;margin-bottom:0pt'>
-                <span style='font-family:Open Sans, sans-serif;opacity:1.0;font-size:17pt;font-weight:700;vertical-align:baseline;white-space:pre-wrap'>${$data.name || '{ Name }'}</span>
+                <span style='font-family:Open Sans, sans-serif;color:#000;font-size:17pt;font-weight:700;vertical-align:baseline;white-space:pre-wrap'>${$data.name || '{ Name }'}</span>
               </p>
               <p style='margin-top:0pt;margin-bottom:0pt'>
-                <span style='font-family:Open Sans, sans-serif;opacity:0.8;vertical-align:baseline;white-space:pre-wrap'>${$data.pronouns || '{ Pronouns }'}${this.appendCofounderText()}</span>
+                <span style='font-family:Open Sans, sans-serif;color:#333;vertical-align:baseline;white-space:pre-wrap'>${$data.pronouns || '{ Pronouns }'}${this.appendCofounderText()}</span>
               </p>
               <p style='margin-top:0pt;margin-bottom:0pt'>
-                <span style='font-family:Open Sans, sans-serif;opacity:0.8;vertical-align:baseline;white-space:pre-wrap'>${$data.title || '{ Title }'}, </span>
+                <span style='font-family:Open Sans, sans-serif;color:#333;vertical-align:baseline;white-space:pre-wrap'>${$data.title || '{ Title }'}, </span>
                 <a href='https://www.infiniteach.com' target='_blank' style='text-decoration:none'>
-                  <span style='font-family:Open Sans, sans-serif;opacity:0.8;vertical-align:baseline;white-space:pre-wrap'>InfiniTeach</span>
+                  <span style='font-family:Open Sans, sans-serif;color:#333;vertical-align:baseline;white-space:pre-wrap'>InfiniTeach</span>
                 </a>
               </p>
               ${this.appendTelEl()}
